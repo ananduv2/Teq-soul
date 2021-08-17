@@ -1,0 +1,40 @@
+{% extends 'accounts/main.html' %}
+
+
+
+    {% block content %}
+
+<div class="main-wrapper">
+    
+    {% include 'accounts/navbar.html' %}
+    {% include 'accounts/sidebar_sales.html' %}
+
+    
+
+
+
+
+
+
+    <div class="page-wrapper">
+        <div class="content container-fluid">
+            {% include 'accounts/status_main_sales.html' %}
+        
+
+            <div class="row mt-4">
+                {% include 'accounts/mini/new_lead.html' %}
+                {% include 'accounts/mini/in_pipeline.html' %}
+            </div>
+            <div class="row mt-4">
+                
+            </div>
+            <div class="content-page">
+                {% include 'accounts/mini/lead_register.html' %}
+            </div>
+            
+            
+            
+        </div>
+    </div>
+</div>
+{% endblock %}

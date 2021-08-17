@@ -1,0 +1,90 @@
+{% extends 'accounts/main.html' %}
+
+
+
+    {% block content %}
+
+<div class="main-wrapper">
+    
+    {% include 'accounts/navbar.html' %}
+
+    {% if s.stype == "1" %}
+    {% include 'accounts/sidebar_operations.html' %}
+    {% elif s.stype == "2" %}
+    {% include 'accounts/sidebar_sales.html' %}
+    {% elif s.stype == "3" %}
+    {% include 'accounts/sidebar_trainer.html' %}
+    {% elif s.stype == "4" %}
+    {% include 'accounts/sidebar_admin.html' %}
+    {% endif %}
+
+
+
+
+
+
+    <div class="page-wrapper">
+        <div class="content container-fluid">
+
+            <div class="page-header">
+                <div class="row">
+                    <div class="col-lg-7 col-md-12 col-sm-12 col-12">
+                        <h5 class="text-uppercase">My Student Register</h5>
+                    </div>
+                    <div class="col-lg-5 col-md-12 col-sm-12 col-12">
+                        <ul class="list-inline breadcrumb float-right">
+                        <li class="list-inline-item"><a href="{% url 'home' %}">Dashboard</a></li>
+                        <li class="list-inline-item">Students</li>
+                        <li class="list-inline-item">My Student Register</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <form method="get">
+                <div >
+                {% csrf_token %}
+            <div class="content-page">
+                <div class="row filter-row">
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group custom-mt-form-group">
+                        {{f.form.name}}
+                        <label class="control-label">Name</label><i class="bar"></i>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group custom-mt-form-group">
+                        {{f.form.email}}
+                        <label class="control-label">Email</label><i class="bar"></i>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-2">
+                        <div class="form-group custom-mt-form-group">
+                        {{f.form.now_attending}}
+                        <label class="control-label">Now Attending</label><i class="bar"></i>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-2">
+                        <div class="form-group custom-mt-form-group">
+                        {{f.form.status}}
+                        <label class="control-label">Status</label><i class="bar"></i>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-1">
+                        <button type="submit" class="btn btn-success btn-block mt-4 mb-2"  style="height: 30px;width:50px;border-radius: 50px 50px 50px 50px"><i class="fa fa-search" aria-hidden="true"></i></button>
+                    </div>
+                    <div class="col-sm-6 col-md-1">
+                        <a type="reset" href="{% url 'my_students' %}" class="btn btn-info btn-block mt-4 mb-2"  style="height: 30px;width:50px;border-radius: 50px 50px 50px 50px"><i class="fas fa-sync" aria-hidden="true"></i></a>
+                    </div>
+                </div></div>
+            </form>
+        
+            {% include 'accounts/mini/student_register.html' %}
+
+
+
+</div>
+</div>
+</div>
+{% endblock %}

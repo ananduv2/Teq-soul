@@ -1,0 +1,32 @@
+<div class="col-lg-7 col-md-12 col-sm-12 col-12">
+    
+</div>
+<div class="">
+    <div class="row staff-grid-row">
+        {% for i in scd %}
+        <div class="col-md-4 col-sm-6 col-12 col-lg-4 col-xl-3">
+            <div class="profile-widget">
+                <div class="profile-img">
+                    <a href="{% url 'my_video_list' i.batch.id %}" class="avatar text-white">
+                        {% if i.batch.subject.pic %}
+                        <img src="{{i.batch.subject.pic.url}}"></a>
+                        {% else %}
+                        {{i.batch.subject.name|first}}
+                        {% endif %}
+                </div>
+                <h4 class="user-name m-t-10 m-b-0 text-ellipsis"><a href="{% url 'my_video_list' i.batch.id %}">{{i.batch.subject.name}}</a></h4>
+                <div class="small text-muted">{{i.batch}}</div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Error!</strong>
+            "You haven't been added to any active batches.Batches will only appear once after the batch has started.If you find this an error please contact your representative ."
+            <button type="button" class="close" data-dismiss="alert" area-label="Close">
+                <span area-hidden="true">×</span>
+            </button>
+        </div>
+        {% endfor %}
+        
+    </div>
+</div>

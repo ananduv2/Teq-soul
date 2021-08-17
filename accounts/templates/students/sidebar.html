@@ -1,0 +1,53 @@
+
+
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-inner slimscroll">
+                <div id="sidebar-menu" class="sidebar-menu">
+                    <ul>
+                        <li class="menu-title">LEARNER ACCOUNT</li>
+                        <li>
+                            <a href="{% url 'student_dashboard' %}"><i class="fas fa-tachometer-alt" aria-hidden="true"></i> Dashboard</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'my_courses' %}" style="width: 80%; display: inline-block;"><i class="fas fa-chalkboard-teacher"></i> My Classroom</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'my_active_courses' %}" style="width: 80%; display: inline-block;"><i class="fab fa-youtube"></i> My Recordings</a>
+                        </li>
+                        <!-- <li>
+                            <a href="" style="width: 80%; display: inline-block;"><i class="fas fa-folder-open"></i> My Documents</a>
+                        </li> -->
+                        <li class="">
+                            <a href="#"><i class="fa fa-question-circle" aria-hidden="true"></i> <span>My Query</span> <span
+                                    class="menu-arrow"></span></a>
+                            <ul class="list-unstyled" style="display: none;">
+                                <li><a href="{% url 'send_doubt' %}">Send Queries</a></li>
+                                <li><a href="{% url 'view_doubt_reply' %}">Solutions</a></li>
+                            </ul>
+                        </li>
+                        <li class="">
+                            <a href="#"><i class="fas fa-exclamation-triangle"></i> <span>Raise Issue</span> <span
+                                    class="menu-arrow"></span></a>
+                            <ul class="list-unstyled" style="display: none;">
+                                <li><a href="{% url 'send_query' %}">Raise Query</a></li>
+                                <li><a href="{% url 'view_query_reply' %}">Responses</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="{% url 'assignment_list' %}"><i class="fas fa-tasks" aria-hidden="true"></i>Assignments</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'list_projects' %}"><i class="fas fa-folder-open"></i>Submit Project</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'get_certificates' %}"><i class="fa fa-certificate" aria-hidden="true"></i>My Certificates</a>
+                        </li>
+                
+                
+                        
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

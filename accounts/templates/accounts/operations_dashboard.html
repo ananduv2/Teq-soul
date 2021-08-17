@@ -1,0 +1,41 @@
+{% extends 'accounts/main.html' %}
+
+
+
+    {% block content %}
+
+<div class="main-wrapper">
+    
+    {% include 'accounts/navbar.html' %}
+
+    {% if s.stype == "1" %}
+
+    {% include 'accounts/sidebar_operations.html' %}
+
+    {% endif %}
+
+
+
+
+
+
+
+    <div class="page-wrapper">
+        <div class="content container-fluid">
+
+            {% include 'accounts/status_main_operations.html' %}
+
+            <div class="row mt-4">
+                
+                {% include 'accounts/mini/task.html' %}
+                {% include 'accounts/mini/batches.html' %}
+
+            </div>
+
+
+            {% include 'accounts/mini/student_register.html' %}
+            
+        </div>
+    </div>
+</div>
+{% endblock %}

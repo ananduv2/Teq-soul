@@ -1,0 +1,32 @@
+{% extends 'accounts/main.html' %}
+
+
+
+    {% block content %}
+
+<div class="main-wrapper">
+    
+    {% include 'students/navbar.html' %}
+
+    {% include 'students/sidebar.html' %}
+
+
+
+
+    <div class="page-wrapper">
+        <div class="content container-fluid">
+
+            {% include 'students/status_main.html' %}
+            <div class="row mt-4">
+                
+                <!--  -->
+                <!--  -->
+
+            </div>
+            <h3>My Courses</h3>
+            {% include 'students/front_suggestions.html' %}
+            
+        </div>
+    </div>
+</div>
+{% endblock %}
