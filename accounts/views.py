@@ -661,8 +661,8 @@ class CreateStudentView(View):
                         l.save()
                         send_mail(
                             '[TEQSTORIES] Account Created',
-                            'Hello learner, Your learner account has been created successfully.Please login to http://127.0.0.1/ with your email as username and mobile number as password.',
-                            'anandubs1409@gmail.com',
+                            'Hello learner, Your learner account has been created successfully.Please login to http://lms.teqstories.com/ with your email as username and mobile number as password.',
+                            'teqstories123@gmail.com',
                             [l.email],
                             fail_silently=False,
                         )
@@ -2454,8 +2454,8 @@ class RegisterNewStaff(View):
                         print(nuser)
                         send_mail(
                             '[TEQSTORIES] Account Created',
-                            'Hello team, Your staff account has been created successfully.Please login to http://127.0.0.1/ with your email as username and mobile number as password.',
-                            'anandubs1409@gmail.com',
+                            'Hello team, Your staff account has been created successfully.Please login to http://lms.teqstories.com/ with your email as username and mobile number as password.',
+                            'teqstories123@gmail.com',
                             [email],
                             fail_silently=False,
                         )

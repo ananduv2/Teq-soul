@@ -86,7 +86,7 @@ DATABASES = {
         'NAME':'soul',
         'USER':'root',
         'PASSWORD':'Teq123##',
-        'HOST':'soul.cgigmba666uv.us-east-1.rds.amazonaws.com',
+        'HOST':'localhost',
         'PORT':'3306',
         'OPTIONS': {
             'init_command':"SET sql_mode='STRICT_TRANS_TABLES'",
