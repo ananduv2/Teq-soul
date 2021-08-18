@@ -27,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-c1aw025+&+j=$72is%6r4igoc1@is^_!446g5nz+#z$t*^v!vb'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
@@ -80,19 +80,27 @@ WSGI_APPLICATION = 'soul.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME':'soul',
-        'USER':'root',
-        'PASSWORD':'Teq123##',
-        'HOST':'localhost',
-        'PORT':'3306',
-        'OPTIONS': {
-            'init_command':"SET sql_mode='STRICT_TRANS_TABLES'",
+if DEBUG == True:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME':BASE_DIR/'db.sqlite3',
         }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME':'soul',
+            'USER':'root',
+            'PASSWORD':'Teq123##',
+            'HOST':'localhost',
+            'PORT':'3306',
+            'OPTIONS': {
+                'init_command':"SET sql_mode='STRICT_TRANS_TABLES'",
+            }
+        }
+    }
 
 
 # Password validation
