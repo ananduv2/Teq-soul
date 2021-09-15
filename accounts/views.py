@@ -246,6 +246,8 @@ class AddStudentCourseData(View):
                 if form.is_valid():
                     f =form.save(commit=False)
                     f.student = student
+                    if f.payment =="Full":
+                        f.optional = "Yes"
                     f.save()
                     re = student.user
                     n = Notification(sender=user,receiver=re,content="Batch update",subject="Added to a new batch")
@@ -258,6 +260,77 @@ class AddStudentCourseData(View):
                 return redirect('home')
         else:
             return redirect('logout')
+
+
+class EditStudentCourseData(View):
+    def get(self, request,id):
+        user=request.user
+        if user.is_authenticated:
+            note = Notification.objects.filter(receiver=user).filter(status="Not Read").order_by('-datetime')
+            no_count = note.count()
+            try:
+                s= Staff.objects.get(user=user)
+                scd = StudentCourseData.objects.get(id=id)
+                student = scd.student
+                form = AddStudentCourseDataForm(instance=scd)
+                return render(request,'accounts/edit_scd.html',{'s':s,'student':student,'no_count':no_count,'note':note,'form':form})
+            except:
+                return redirect('home')
+        else:
+            return redirect('logout')
+
+    def post(self, request,id):
+        user=request.user
+        if user.is_authenticated:
+            note = Notification.objects.filter(receiver=user).filter(status="Not Read").order_by('-datetime')
+            no_count = note.count()
+            try:
+                s= Staff.objects.get(user=user)
+                scd = StudentCourseData.objects.get(id=id)
+                student = scd.student
+                form = AddStudentCourseDataForm(request.POST,instance=scd)
+                if form.is_valid():
+                    f =form.save(commit=False)
+                    f.student = student
+                    if f.payment =="Full":
+                        f.optional = "Yes"
+                    f.save()
+                    re = student.user
+                    n = Notification(sender=user,receiver=re,content="Batch update",subject="Batch/Payment has been updated")
+                    n.save()
+                    return redirect('student_profile_view',id=student.id)
+                else:
+                    msg="Unable to update data. If you find this as an error report it to the development team. "
+                    return render(request,'okmsg',{'s':s,'msg':msg,'no_count':no_count,'note':note,'msg':msg})
+            except:
+                return redirect('home')
+        else:
+            return redirect('logout')
+
+
+class ShareVideo(View):
+    def get(self, request,id):
+        user=request.user
+        if user.is_authenticated:
+            note = Notification.objects.filter(receiver=user).filter(status="Not Read").order_by('-datetime')
+            no_count = note.count()
+            try:
+                s= Staff.objects.get(user=user)
+                cd = StudentCourseData.objects.get(id=id)
+                student = cd.student
+                if cd.optional=="Yes":
+                    cd.optional="No"
+                elif cd.optional== "No":
+                    cd.optional="Yes"
+                cd.save()
+                scd = StudentCourseData.objects.filter(student=student)
+                return render(request,'accounts/student_profile.html',{'s':s,'no_count':no_count,'note':note,'student':student,'scd':scd})
+            except:
+                return redirect('home')
+        else:
+            return redirect('logout')
+
+
 
 
 
@@ -498,6 +571,7 @@ class CreateLead(View):
                     form = LeadCreateForm(request.POST)
                     if form.is_valid():
                         f = form.save(commit=False)
+                        f.status = "New"
                         f.generator = s
                         f.save()
                         return redirect('home')

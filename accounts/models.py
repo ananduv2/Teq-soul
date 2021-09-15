@@ -248,7 +248,7 @@ class StudentCourseData(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE,related_name='student',null=True,blank=True)
     batch = models.ForeignKey(Batch, on_delete=models.CASCADE,related_name='batch',limit_choices_to=Q(status="Ongoing")|Q(status="Yet to start"),blank=True)
     payment = models.CharField(max_length=10,choices=(('Full','Full'),('Half','Half'),('Not Paid','Not Paid')),default='Not Paid',blank=True)
-    optional = models.CharField(max_length=20,choices=(('Yes','Yes'),('No','No')),default="No",null=True)
+    optional = models.CharField(max_length=20,choices=(('1','Yes'),('0','No')),default="No",null=True)
     
     def __str__(self):
         s=" 's "
@@ -337,7 +337,7 @@ class Lead(models.Model):
     name = models.CharField(max_length=100,null=True, blank=True)
     email = models.EmailField(max_length=200,null=True,blank=True)
     mobile = models.CharField(max_length=10,null=True,blank=True)
-    sex = models.CharField(max_length=10,null=True,choices=(('Male','Male'),('Female','Female')),blank=True)
+    sex = models.CharField(max_length=10,null=True,choices=(('Male','Male'),('Female','Female')),blank=True,default="Male")
     generator = models.ForeignKey(Staff,on_delete=models.PROTECT, blank=True,null=True,limit_choices_to={'stype':"2"})
     created_on = models.DateField(auto_now_add=True, null=True, blank=True)
     status = models.CharField(max_length=100,null=True, blank=True,choices=groups,default="New")
