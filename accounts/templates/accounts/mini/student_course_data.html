@@ -43,9 +43,9 @@
                                                 aria-expanded="false"><i class="fas fa-ellipsis-v"></i></a>
                                             <div class="dropdown-menu dropdown-menu-right">
                                                 <a class="dropdown-item" href="{% url 'edit_scd' i.id %}"><i class="fas fa-pencil-alt"></i>&nbsp;Update</a>
-                                                {% if i.optional == "0" %}
+                                                {% if i.optional == "No" %}
                                                 <a class="dropdown-item" href="{% url 'share_video' i.id %}"><i class="fas fa-share-alt-square"></i>&nbsp;Share Video</a>
-                                                {% else %}
+                                                {% elif i.optional == "Yes" %}
                                                 <a class="dropdown-item" href="{% url 'share_video' i.id %}"><i class="fas fa-ban"></i>&nbsp;Revoke Share</a>
                                                 {% endif %}
                                                 <a class="dropdown-item" href="{% url 'delete_scd' i.id %}"><i class="fas fa-trash"></i>&nbsp;Remove</a>   
