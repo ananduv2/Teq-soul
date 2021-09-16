@@ -122,7 +122,9 @@
 
                 <!--  Body Content -->
             </div>
-
+            {% if msg %}
+                <script>alert("{{msg}}");</script>
+            {% endif %}
 
 
 {% endblock %}

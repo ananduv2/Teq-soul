@@ -644,7 +644,7 @@ class MyClosedLead(View):
             try:
                 s= Staff.objects.get(user=user)
                 if s.stype =="2":
-                    lead = Lead.objects.filter(status="Closed").filter(generator=s)
+                    lead = Lead.objects.filter(status="Converted").filter(generator=s)
                     f=LeadFilter(self.request.GET,queryset=lead)
                     lead=f.qs
                     return render(request,'accounts/closed_lead.html',{'f':f,'s':s,'no_count':no_count,'note':note,'lead':lead})
@@ -760,6 +760,67 @@ class CreateStudentView(View):
                 return redirect('home')
         else:
             return redirect('logout')
+
+class UpdatePayment(View):
+    def get(self, request,id):
+        user=request.user
+        if user.is_authenticated:
+            note = Notification.objects.filter(receiver=user).filter(status="Not Read").order_by('-datetime')
+            no_count = note.count()
+            try:
+                s= Staff.objects.get(user=user)
+                if s.stype == "2":
+                    student = Student.objects.get(id=id)
+                    form = PaymentForm(instance=student)
+                    return render(request,'accounts/update_payments.html',{'s':s,'no_count':no_count,'note':note,'student':student,'form':form})
+                else:
+                    return redirect('home')
+            except:
+                return redirect('home')
+        else:
+            return redirect('logout')
+
+    def post(self, request,id):
+        user=request.user
+        if user.is_authenticated:
+            note = Notification.objects.filter(receiver=user).filter(status="Not Read").order_by('-datetime')
+            no_count = note.count()
+            try:
+                s= Staff.objects.get(user=user)
+                if s.stype == "2":
+                    student = Student.objects.get(id=id)
+                    form = PaymentForm(request.POST,instance=student)
+                    if form.is_valid():
+                        f = form.save(commit=False)
+                        f.balance = f.total_fees - f.fees_paid
+                        if f.balance == 0:
+                            f.payment ="Full"
+                        elif f.balance <=(f.total_fees/2):
+                            f.payment ="Half"
+                        elif f.balance >(f.total_fees/2) and f.balance >0:
+                            f.payment ="Advance/Not Paid"
+                        elif f.balance < 0:
+                            msg = "Payment updation has failed.Please check the figures."
+                            return render(request,'accounts/okmsg.html',{'s':s,'msg':msg,'no_count':no_count,'note':note})
+
+                        f.save()
+                        re = student.user
+                        n = Notification(sender=user,receiver=re,content="Fees Payment has been updated.Balance amount",subject=f.balance)
+                        n.save()
+                        msg = "Payment has been updated and notifications has been sent!"
+                        return render(request,'accounts/okmsg.html',{'s':s,'msg':msg,'no_count':no_count,'note':note})
+                    else:
+                        msg = "Payment updation has failed"
+                        return render(request,'accounts/okmsg.html',{'s':s,'msg':msg,'no_count':no_count,'note':note})
+                else:
+                    return redirect('home')
+            except:
+                return redirect('home')
+        else:
+            return redirect('logout')
+
+
+
 
 
 
@@ -1402,6 +1463,16 @@ class MyStudents(View):
                         course_data = StudentCourseData.objects.filter(student=i)
                         i.course_enrolled=[]
                         i.now_attending=[]
+                        x = 0
+                        scd = StudentCourseData.objects.filter(student=i)
+                        for k in scd:
+                            if k.optional == "Yes":
+                                print(k.optional)
+                                x = x+1
+                        if x > 0:
+                            i.shared = True
+                        elif x == 0:
+                            i.shared = False
                         for j in course_data:
                             i.course_enrolled.append(j.batch.subject)
                             if j.batch.status == "Ongoing":
