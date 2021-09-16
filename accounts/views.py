@@ -441,6 +441,16 @@ class StudentRegister(View):
                         course_data = StudentCourseData.objects.filter(student=i)
                         i.course_enrolled=[]
                         i.now_attending=[]
+                        x=0
+                        scd = StudentCourseData.objects.filter(student=i)
+                        for k in scd:
+                            if k.optional == "Yes":
+                                print(k.optional)
+                                x = x+1
+                        if x > 0:
+                            i.shared = True
+                        elif x == 0:
+                            i.shared = False
                         for j in course_data:
                             i.course_enrolled.append(j.batch.subject)
                             if j.batch.status == "Ongoing":
@@ -786,6 +796,16 @@ class OperationsDashboard(View):
                         course_data = StudentCourseData.objects.filter(student=i)
                         i.course_enrolled=[]
                         i.now_attending=[]
+                        x=0
+                        scd = StudentCourseData.objects.filter(student=i)
+                        for k in scd:
+                            if k.optional == "Yes":
+                                print(k.optional)
+                                x = x+1
+                        if x > 0:
+                            i.shared = True
+                        elif x == 0:
+                            i.shared = False
                         for j in course_data:
                             i.course_enrolled.append(j.batch.subject)
                             if j.batch.status == "Ongoing":
@@ -1328,6 +1348,16 @@ class TrainerDashboard(View):
                         course_data = StudentCourseData.objects.filter(student=i)
                         i.course_enrolled=[]
                         i.now_attending=[]
+                        x=0
+                        scd = StudentCourseData.objects.filter(student=i)
+                        for k in scd:
+                            if k.optional == "Yes":
+                                print(k.optional)
+                                x = x+1
+                        if x > 0:
+                            i.shared = True
+                        elif x == 0:
+                            i.shared = False
                         for j in course_data:
                             i.course_enrolled.append(j.batch.subject)
                             if j.batch.status == "Ongoing":
