@@ -105,6 +105,11 @@ class ProjectApproval(ModelForm):
         model = StudentProjectData
         fields = ['status']
 
+class PaymentForm(ModelForm):
+    class Meta:
+        model = Student
+        fields = ['total_fees','fees_paid']
+
 
 
 
