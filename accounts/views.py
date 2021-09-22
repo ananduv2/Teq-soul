@@ -454,7 +454,7 @@ class StudentRegister(View):
                         for j in course_data:
                             i.course_enrolled.append(j.batch.subject)
                             if j.batch.status == "Ongoing":
-                                i.now_attending.append(j.batch.subject)
+                                i.now_attending.append(j.batch.batchcode)
                         i.save()
                     
                     return render(request,'accounts/student_register.html',{'s':s,'f':f,'students':students,'note':note,'no_count':no_count})
@@ -870,7 +870,7 @@ class OperationsDashboard(View):
                         for j in course_data:
                             i.course_enrolled.append(j.batch.subject)
                             if j.batch.status == "Ongoing":
-                                i.now_attending.append(j.batch.subject)
+                                i.now_attending.append(j.batch.batchcode)
                         i.save()
                     return render(request,'accounts/operations_dashboard.html',{'ba_count':ba_count,'by_count':by_count,'by':by,'ba':ba,'ta':ta,'ta_count':ta_count,'students':students,'no_count':no_count,'note':note,'s':s})
                     ###Common code for operations
@@ -1422,7 +1422,7 @@ class TrainerDashboard(View):
                         for j in course_data:
                             i.course_enrolled.append(j.batch.subject)
                             if j.batch.status == "Ongoing":
-                                i.now_attending.append(j.batch.subject)
+                                i.now_attending.append(j.batch.batchcode)
                                 i.save()
                     ba = Batch.objects.filter(trainer=s).filter(status="Ongoing")
                     ba_count = ba.count()
@@ -1476,7 +1476,7 @@ class MyStudents(View):
                         for j in course_data:
                             i.course_enrolled.append(j.batch.subject)
                             if j.batch.status == "Ongoing":
-                                i.now_attending.append(j.batch.subject)
+                                i.now_attending.append(j.batch.batchcode)
                             i.save()
                     return render(request,'accounts/my_student_register.html',{'s':s,'f':f,'students':students,'note':note,'no_count':no_count})
                     ###Common code

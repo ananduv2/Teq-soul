@@ -107,6 +107,7 @@ class Batch(models.Model):
         ('Ongoing', 'Ongoing'),
         ('Completed', 'Completed'),
     ]
+    batchcode = models.CharField(max_length=15,null=True, blank=True)
     subject = models.ForeignKey(Courses,on_delete=models.CASCADE,null=True,blank=True)
     trainer = models.ForeignKey(Staff,on_delete=models.CASCADE,null=True,limit_choices_to={'stype':"3"},blank=True)
     timing = models.CharField(max_length=100, null=True,blank=True)
